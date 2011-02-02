@@ -1,0 +1,5 @@
+user_name: test
+license_code: TEST-TEST-TEST-TEST
+timeout: 20
+ocr_web_service_url: http://www.ocrwebservice.com/services/OCRWebService.asmx
+soap_action: http://stockservice.contoso.com/wse/samples/2005/10/OCRWebServiceRecognize
