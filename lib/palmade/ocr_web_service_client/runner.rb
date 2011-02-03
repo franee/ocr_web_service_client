@@ -14,10 +14,10 @@ module Palmade
         begin
           ocr_ws_recognize_obj = get_ocr_web_service_recognize(filename, filepath)
           xml = ocr_ws_recognize_obj.to_xml
-          say xml
+
           reply = @ws.post(xml)
 
-          ocr_text = parse_ocr_web_service_recognize_response(reply)
+          ocr_text = clean_str(parse_ocr_web_service_recognize_response(reply))
           say ocr_text
         rescue Exception
           ocr_text = ''
@@ -64,7 +64,7 @@ module Palmade
       end
 
       def parse_ocr_web_service_recognize_response(reply)
-        doc  = get_parsed_doc(reply)
+        doc   = get_parsed_doc(reply)
         nodes =  doc.find('//ns:OCRWebServiceRecognizeResponse/ns:OCRWSResponse/ns:fileData',
                           'ns' => 'http://stockservice.contoso.com/wse/samples/2005/10')
 
@@ -77,6 +77,10 @@ module Palmade
       def get_parsed_doc(reply)
         parser = XML::Parser.string(reply, :encoding => XML::Encoding::UTF_8)
         parser.parse
+      end
+
+      def clean_str(str)
+        str.bytes.to_a.delete_if { |x| x == 0 }.pack("c*")
       end
 
     end

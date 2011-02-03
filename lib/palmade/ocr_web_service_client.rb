@@ -24,7 +24,8 @@ module Palmade
 
     class << self
 
-      def init(logger = nil)
+      def init(target_path, logger = nil)
+        load_config(target_path)
         @logger   = logger || Logger.new(STDOUT)
         @instance = Runner.instance
       end
@@ -33,11 +34,16 @@ module Palmade
         @logger
       end
 
+      def load_config(target_path)
+        yml_path = File.join(target_path, 'config/ocr_web_service.yml')
+        if File.exists?(yml_path)
+          config_hash = YAML.load_file(yml_path)
+          @config     = OpenStruct.new(config_hash)
+        end
+      end
+
       def config
-        @config ||= begin
-                      config_hash = YAML.load_file(File.join(OCR_WEB_SERVICE_CLIENT_LIB_DIR, '../../../config/ocr_web_service.yml'))
-                      OpenStruct.new(config_hash)
-                    end
+        @config
       end
 
       def ocr_web_service_recognize(filename, filepath)
