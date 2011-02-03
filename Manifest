@@ -1,6 +1,5 @@
 ocr_web_service_client.gemspec
 Rakefile
-Gemfile
 test.rb
 config/ocr_web_service.yml.sample
 config/ocr_web_service.yml
@@ -8,6 +7,7 @@ COPYING
 LICENSE
 CHANGELOG
 README
+Manifest
 lib/palmade/ocr_web_service_client.rb
 lib/palmade/ocr_web_service_client/web_service.rb
 lib/palmade/ocr_web_service_client/runner.rb
@@ -16,4 +16,3 @@ lib/palmade/ocr_web_service_client/ocr_web_service_recognize.rb
 lib/palmade/ocr_web_service_client/ocrws_setting.rb
 lib/palmade/ocr_web_service_client/ocrws_zone.rb
 lib/palmade/ocr_web_service_client/ocrws_input_image.rb
-Manifest
