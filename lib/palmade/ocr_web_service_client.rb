@@ -26,8 +26,8 @@ module Palmade
 
       def init(target_path, logger = nil)
         load_config(target_path)
-        @logger   = logger || Logger.new(STDOUT)
-        @instance = Runner.instance
+        @logger = logger || Logger.new(STDOUT)
+        @runner = Runner.instance
       end
 
       def logger
@@ -47,7 +47,7 @@ module Palmade
       end
 
       def ocr_web_service_recognize(target)
-        @instance.ocr_web_service_recognize(target)
+        @runner.ocr_web_service_recognize(target)
       end
 
     end
