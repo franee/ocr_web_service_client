@@ -10,9 +10,9 @@ module Palmade
         @logger = OcrWebServiceClient.logger
       end
 
-      def ocr_web_service_recognize(filename, filepath)
+      def ocr_web_service_recognize(target)
         begin
-          ocr_ws_recognize_obj = get_ocr_web_service_recognize(filename, filepath)
+          ocr_ws_recognize_obj = get_ocr_web_service_recognize(target)
           xml = ocr_ws_recognize_obj.to_xml
 
           reply = @ws.post(xml)
@@ -32,20 +32,17 @@ module Palmade
         @logger.info msg
       end
 
-      def get_ocr_web_service_recognize(filename, filepath)
+      def get_ocr_web_service_recognize(target)
         user_name         = @config.user_name
         license_code      = @config.license_code
-        ocrws_input_image = get_ocrws_input_image(filename, filepath)
+        ocrws_input_image = get_ocrws_input_image(target)
         ocrws_setting     = get_ocrws_setting
 
         OCRWebServiceRecognize.new(user_name, license_code, ocrws_input_image, ocrws_setting)
       end
 
-      def get_ocrws_input_image(filename, filepath)
-        file_name = filename
-        file_data = IO.read(filepath)
-
-        OCRWSInputImage.new(file_name, file_data)
+      def get_ocrws_input_image(target)
+        OCRWSInputImage.new(target)
       end
 
       def get_ocrws_setting

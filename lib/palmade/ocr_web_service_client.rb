@@ -46,8 +46,8 @@ module Palmade
         @config
       end
 
-      def ocr_web_service_recognize(filename, filepath)
-        @instance.ocr_web_service_recognize(filename, filepath)
+      def ocr_web_service_recognize(target)
+        @instance.ocr_web_service_recognize(target)
       end
 
     end
