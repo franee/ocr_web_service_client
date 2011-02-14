@@ -39,6 +39,8 @@ module Palmade
         if File.exists?(yml_path)
           config_hash = YAML.load_file(yml_path)
           @config     = OpenStruct.new(config_hash)
+        else
+          raise "No ocr_web_service.yml file"
         end
       end
 
