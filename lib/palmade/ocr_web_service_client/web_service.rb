@@ -14,7 +14,7 @@ module Palmade
         request.body = data
         body         = nil
 
-        Timeout::timeout(@config.timeout) do
+        SystemTimer.timeout(@config.timeout) do
           response = http.request(request)
           body     = response.body
         end
