@@ -25,16 +25,22 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<builder>, [">= 0"])
       s.add_runtime_dependency(%q<libxml-ruby>, [">= 0"])
-      s.add_runtime_dependency(%q<SystemTimer>, [">= 0"])
+      if RUBY_VERSION == "1.8.7"
+        s.add_runtime_dependency(%q<SystemTimer>, [">= 0"])
+      end
     else
       s.add_dependency(%q<builder>, [">= 0"])
       s.add_dependency(%q<libxml-ruby>, [">= 0"])
-      s.add_dependency(%q<SystemTimer>, [">= 0"])
+      if RUBY_VERSION == "1.8.7"
+        s.add_dependency(%q<SystemTimer>, [">= 0"])
+      end
     end
   else
     s.add_dependency(%q<builder>, [">= 0"])
     s.add_dependency(%q<libxml-ruby>, [">= 0"])
-    s.add_dependency(%q<SystemTimer>, [">= 0"])
+    if RUBY_VERSION == "1.8.7"
+      s.add_dependency(%q<SystemTimer>, [">= 0"])
+    end
   end
 
 end

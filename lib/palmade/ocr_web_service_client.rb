@@ -5,10 +5,18 @@ require 'singleton'
 require 'builder'
 require 'logger'
 require 'xml'
-require 'system_timer'
 require 'yaml'
 require 'ostruct'
 require 'base64'
+
+begin
+  require 'system_timer'
+  PalmadeTimer = SystemTimer
+rescue LoadError
+  require 'timeout'
+  PalmadeTimer = Timeout
+end
+
 
 OCR_WEB_SERVICE_CLIENT_LIB_DIR  = File.join(File.dirname(__FILE__), 'ocr_web_service_client')
 
