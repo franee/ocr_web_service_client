@@ -15,7 +15,7 @@ module Palmade
           ocr_ws_recognize_obj = get_ocr_web_service_recognize(target)
           xml = ocr_ws_recognize_obj.to_xml
 
-          reply = @ws.post(xml)
+          reply = @ws.post(xml, 'OCRWebServiceRecognize')
 
           ocr_text = clean_str(parse_ocr_web_service_recognize_response(reply))
           say ocr_text
@@ -26,10 +26,34 @@ module Palmade
         ocr_text
       end
 
+      def ocr_web_service_available_pages
+        begin
+          ocr_ws_available_pages_obj = get_ocr_web_service_available_pages
+          xml = ocr_ws_available_pages_obj.to_xml
+
+          reply = @ws.post(xml, 'OCRWebServiceAvailablePages')
+
+          available = parse_ocr_web_service_available_pages_response(reply)
+          say available
+        rescue Exception
+          available = ''
+        end
+
+        available
+      end
+
+
       protected
 
       def say(msg)
         @logger.info msg
+      end
+
+      def get_ocr_web_service_available_pages
+        user_name         = @config.user_name
+        license_code      = @config.license_code
+
+        OCRWebServiceAvailablePages.new(user_name, license_code)
       end
 
       def get_ocr_web_service_recognize(target)
@@ -66,6 +90,17 @@ module Palmade
                           'ns' => 'http://stockservice.contoso.com/wse/samples/2005/10')
 
         result = Base64.decode64(nodes.first.content)
+
+        nodes = nil # garbage collect
+        result
+      end
+
+      def parse_ocr_web_service_available_pages_response(reply)
+        doc   = get_parsed_doc(reply)
+        nodes =  doc.find('//ns:OCRWebServiceAvailablePagesResponse/ns:OCRWebServiceAvailablePagesResult',
+                          'ns' => 'http://stockservice.contoso.com/wse/samples/2005/10')
+
+        result = nodes.first.content
 
         nodes = nil # garbage collect
         result

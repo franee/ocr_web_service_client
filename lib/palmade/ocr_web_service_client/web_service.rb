@@ -8,7 +8,8 @@ module Palmade
         @uri     = URI.parse(@config.ocr_web_service_url)
       end
 
-      def post(data)
+      def post(data, action)
+        @soap_action = action
         http         = new_http
         request      = new_request
         request.body = data
@@ -33,7 +34,7 @@ module Palmade
       def new_request
         request  = ::Net::HTTP::Post.new(@uri.path)
         request["Content-Type"] = "text/xml; charset=UTF-8"
-        request["SOAPAction"]   = @config.soap_action
+        request["SOAPAction"]   = "http://stockservice.contoso.com/wse/samples/2005/10/#{@soap_action}"
         request
       end
     end

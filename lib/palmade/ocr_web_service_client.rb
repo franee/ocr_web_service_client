@@ -29,6 +29,7 @@ module Palmade
     autoload :OCRWSInputImage,        File.join(OCR_WEB_SERVICE_CLIENT_LIB_DIR, 'ocrws_input_image')
     autoload :OCRWSSetting,           File.join(OCR_WEB_SERVICE_CLIENT_LIB_DIR, 'ocrws_setting')
     autoload :OCRWSZone,              File.join(OCR_WEB_SERVICE_CLIENT_LIB_DIR, 'ocrws_zone')
+    autoload :OCRWebServiceAvailablePages, File.join(OCR_WEB_SERVICE_CLIENT_LIB_DIR, 'ocr_web_service_available_pages')
 
     class << self
 
@@ -58,6 +59,10 @@ module Palmade
 
       def ocr_web_service_recognize(target)
         @runner.ocr_web_service_recognize(target)
+      end
+
+      def ocr_web_service_available_pages
+        @runner.ocr_web_service_available_pages
       end
 
     end
